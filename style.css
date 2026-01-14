@@ -1,8 +1,8 @@
 body {
     margin: 0;
-    background: #0b0f1a;
-    font-family: Arial, sans-serif;
-    color: white;
+    background: #0e1324;
+    font-family: "Segoe UI", sans-serif;
+    color: #fff;
 }
 
 /* TOP BAR */
@@ -10,104 +10,121 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    background: #11162a;
+    padding: 12px;
+    background: #141a32;
 }
 
 #topTitle {
-    color: #00ffe1;
+    color: #7fffd4;
     font-size: 18px;
 }
 
-#menuBtn, #settingsBtn {
+#topBar i {
     font-size: 20px;
     cursor: pointer;
 }
 
 /* SIDEBAR */
-.sidebar {
+#sidebar {
     position: fixed;
     top: 0;
     left: -260px;
     width: 240px;
     height: 100%;
-    background: #1a1f33;
+    background: #1a2040;
     padding: 15px;
     transition: 0.3s ease;
-    z-index: 1000;
+    z-index: 1001;
 }
 
-.sidebar.open {
+#sidebar.open {
     left: 0;
 }
 
-.sidebar h3 {
-    margin-top: 0;
-    color: #00ffe1;
+#sidebar h3 {
+    color: #7fffd4;
 }
 
-.sidebar div {
+#sidebar div {
     padding: 12px 5px;
     cursor: pointer;
-    border-bottom: 1px solid #2a2f4a;
+}
+
+/* OVERLAY */
+#overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    z-index: 1000;
 }
 
 /* CHAT */
 #chatBox {
-    height: calc(100vh - 130px);
+    height: calc(100vh - 140px);
     padding: 15px;
     overflow-y: auto;
 }
 
 .userMsg, .aiMsg {
     max-width: 75%;
-    padding: 12px;
+    padding: 14px;
     margin-bottom: 12px;
-    border-radius: 15px;
-    animation: bubbleMove 0.4s ease;
+    border-radius: 18px;
+    animation: pop 0.35s ease;
 }
 
 .userMsg {
-    background: #00ffe1;
-    color: black;
+    background: #7fffd4;
+    color: #000;
     margin-left: auto;
 }
 
 .aiMsg {
-    background: #1a1f33;
-    margin-right: auto;
+    background: #1e254a;
 }
 
-@keyframes bubbleMove {
-    from { transform: translateY(10px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+@keyframes pop {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
 /* INPUT */
 #inputArea {
     display: flex;
+    align-items: center;
     padding: 10px;
-    background: #11162a;
+    background: #141a32;
 }
 
 #textInput {
     flex: 1;
-    padding: 10px;
-    border-radius: 8px;
+    padding: 12px;
+    border-radius: 20px;
     border: none;
+    outline: none;
 }
 
-#sendBtn, #micBtn, #camBtn {
+#inputArea button {
     margin-left: 6px;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 50%;
     border: none;
+    background: #7fffd4;
+    color: #000;
+    font-size: 16px;
 }
 
 /* CAMERA */
 #camera {
     display: none;
     width: 100%;
+    animation: fade 0.4s ease;
+}
+
+@keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* TOAST */
@@ -116,10 +133,10 @@ body {
     bottom: 90px;
     left: 50%;
     transform: translateX(-50%);
-    background: #00ffe1;
+    background: #7fffd4;
     color: #000;
-    padding: 10px 18px;
-    border-radius: 20px;
+    padding: 10px 20px;
+    border-radius: 30px;
     display: none;
     z-index: 2000;
 }
