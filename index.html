@@ -4,23 +4,30 @@
 <meta charset="UTF-8">
 <title>ANSHCORE AI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- FONT AWESOME -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- TOP BAR -->
 <div id="topBar">
-    <div id="menuBtn">☰</div>
+    <i id="menuBtn" class="fa-solid fa-bars"></i>
     <div id="topTitle">ANSHCORE AI</div>
-    <div id="settingsBtn">⚙️</div>
+    <i id="settingsBtn" class="fa-solid fa-gear"></i>
 </div>
 
+<!-- OVERLAY -->
+<div id="overlay"></div>
+
 <!-- SIDEBAR -->
-<div id="sidebar" class="sidebar">
+<div id="sidebar">
     <h3>ANSHCORE AI</h3>
-    <div onclick="newChat()">🆕 New Chat</div>
-    <div onclick="showMood()">💙 Mood</div>
-    <div onclick="showHistory()">📜 History</div>
+    <div onclick="newChat()"><i class="fa-solid fa-plus"></i> New Chat</div>
+    <div onclick="showMood()"><i class="fa-solid fa-heart"></i> Mood</div>
+    <div onclick="showHistory()"><i class="fa-solid fa-clock"></i> History</div>
 </div>
 
 <!-- CHAT -->
@@ -28,10 +35,23 @@
 
 <!-- INPUT -->
 <div id="inputArea">
-    <input type="text" id="textInput" placeholder="Talk to me...">
-    <button id="sendBtn">➤</button>
-    <button id="micBtn">🎤</button>
-    <button id="camBtn">📷</button>
+    <input type="text" id="textInput" placeholder="Talk to me calmly...">
+    
+    <button id="micBtn" title="Voice input">
+        <i class="fa-solid fa-microphone"></i>
+    </button>
+
+    <button id="voiceToggle" title="Voice reply">
+        <i class="fa-solid fa-volume-high"></i>
+    </button>
+
+    <button id="camBtn" title="Camera">
+        <i class="fa-solid fa-camera"></i>
+    </button>
+
+    <button id="sendBtn">
+        <i class="fa-solid fa-paper-plane"></i>
+    </button>
 </div>
 
 <!-- CAMERA -->
