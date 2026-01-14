@@ -1,16 +1,21 @@
-const chatBox = document.getElementById("chatBox");
-const textInput = document.getElementById("textInput");
-const sendBtn = document.getElementById("sendBtn");
-const micBtn = document.getElementById("micBtn");
-const camBtn = document.getElementById("camBtn");
-const camera = document.getElementById("camera");
 const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
 const toast = document.getElementById("toast");
 
-let memory = JSON.parse(localStorage.getItem("anshcore_memory")) || [];
-let aiBusy = false;
+const camBtn = document.getElementById("camBtn");
+const camera = document.getElementById("camera");
+
+const micBtn = document.getElementById("micBtn");
+const voiceToggle = document.getElementById("voiceToggle");
+
+const sendBtn = document.getElementById("sendBtn");
+const textInput = document.getElementById("textInput");
+const chatBox = document.getElementById("chatBox");
+
 let cameraOn = false;
-let cameraStream = null;
+let stream = null;
+let aiBusy = false;
+let voiceReplyOn = true;
 
 /* TOAST */
 function showToast(msg) {
@@ -19,39 +24,43 @@ function showToast(msg) {
     setTimeout(() => toast.style.display = "none", 2000);
 }
 
-/* SIDEBAR TOGGLE */
+/* SIDEBAR */
 document.getElementById("menuBtn").onclick = () => {
-    sidebar.classList.toggle("open");
+    sidebar.classList.add("open");
+    overlay.style.display = "block";
 };
 
-/* CHAT HELPERS */
+overlay.onclick = () => {
+    sidebar.classList.remove("open");
+    overlay.style.display = "none";
+};
+
+/* CHAT */
 function addMsg(text, type) {
-    const div = document.createElement("div");
-    div.className = type;
-    div.innerText = text;
-    chatBox.appendChild(div);
+    const d = document.createElement("div");
+    d.className = type;
+    d.innerText = text;
+    chatBox.appendChild(d);
     chatBox.scrollTop = chatBox.scrollHeight;
+
+    if (type === "aiMsg" && voiceReplyOn) speak(text);
 }
 
-function saveMemory(role, text) {
-    memory.push({
-        role,
-        text,
-        time: new Date().toLocaleString()
-    });
-    localStorage.setItem("anshcore_memory", JSON.stringify(memory));
+/* SPEAK */
+function speak(text) {
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.95;
+    speechSynthesis.speak(u);
 }
 
 /* SEND */
 sendBtn.onclick = () => {
     if (aiBusy) return;
-    let txt = textInput.value.trim();
-    if (!txt) return;
-
+    const t = textInput.value.trim();
+    if (!t) return;
     textInput.value = "";
-    addMsg(txt, "userMsg");
-    saveMemory("User", txt);
-    aiResponse(txt.toLowerCase());
+    addMsg(t, "userMsg");
+    aiResponse(t.toLowerCase());
 };
 
 /* AI */
@@ -60,59 +69,53 @@ function aiResponse(cmd) {
     sendBtn.disabled = true;
 
     setTimeout(() => {
-        let reply = emotionalReply(cmd);
+        const reply = "💙 I’m here with you. You can talk to me freely.";
         addMsg(reply, "aiMsg");
-        saveMemory("ANSHCORE AI", reply);
         aiBusy = false;
         sendBtn.disabled = false;
     }, 1200);
 }
 
-function emotionalReply(text) {
-    if (text.includes("sad") || text.includes("depressed") || text.includes("alone")) {
-        return "💙 I’m here with you. You’re not alone. Talk to me 🤍";
-    }
-    if (text.includes("happy")) {
-        return "😊 I love seeing you happy ✨";
-    }
-    return "🤖 I understand you. Tell me more...";
-}
+/* MIC */
+micBtn.onclick = () => {
+    const rec = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    rec.lang = "auto";
+    rec.onresult = e => {
+        textInput.value = e.results[0][0].transcript;
+    };
+    rec.start();
+};
 
-/* SIDEBAR OPTIONS */
-function newChat() {
-    chatBox.innerHTML = "";
-    sidebar.classList.remove("open");
-}
-
-function showHistory() {
-    if (memory.length === 0) {
-        alert("No memory yet 🤍");
-        return;
-    }
-
-    let text = "🧠 ANSHCORE AI MEMORY\n\n";
-    memory.forEach((m, i) => {
-        text += `${i+1}. ${m.role}\n💬 ${m.text}\n⏰ ${m.time}\n\n`;
-    });
-    alert(text);
-}
-
-function showMood() {
-    alert("💙 Mood: Calm, Caring & Always With You");
-}
+/* VOICE TOGGLE */
+voiceToggle.onclick = () => {
+    voiceReplyOn = !voiceReplyOn;
+    showToast(voiceReplyOn ? "Voice reply ON 🔊" : "Voice reply OFF 🔇");
+};
 
 /* CAMERA TOGGLE */
 camBtn.onclick = async () => {
     if (!cameraOn) {
-        cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
-        camera.srcObject = cameraStream;
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        camera.srcObject = stream;
         camera.style.display = "block";
         cameraOn = true;
         showToast("Camera is ON 📷");
     } else {
-        cameraStream.getTracks().forEach(track => track.stop());
+        stream.getTracks().forEach(t => t.stop());
         camera.style.display = "none";
         cameraOn = false;
         showToast("Camera is OFF ❌");
     }
 };
+
+/* SIDEBAR FUNCTIONS */
+function newChat() {
+    chatBox.innerHTML = "";
+    overlay.click();
+}
+function showMood() {
+    alert("Mood: Calm & Caring 💙");
+}
+function showHistory() {
+    alert("History will open as a screen next.");
+}
