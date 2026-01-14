@@ -15,17 +15,18 @@
     <div id="settingsBtn">⚙️</div>
 </div>
 
-<!-- DROPDOWN MENU -->
-<div id="menuPanel" class="hidden">
+<!-- SIDEBAR -->
+<div id="sidebar" class="sidebar">
+    <h3>ANSHCORE AI</h3>
     <div onclick="newChat()">🆕 New Chat</div>
     <div onclick="showMood()">💙 Mood</div>
     <div onclick="showHistory()">📜 History</div>
 </div>
 
-<!-- CHAT AREA -->
+<!-- CHAT -->
 <div id="chatBox"></div>
 
-<!-- INPUT AREA -->
+<!-- INPUT -->
 <div id="inputArea">
     <input type="text" id="textInput" placeholder="Talk to me...">
     <button id="sendBtn">➤</button>
@@ -35,6 +36,9 @@
 
 <!-- CAMERA -->
 <video id="camera" autoplay></video>
+
+<!-- TOAST -->
+<div id="toast"></div>
 
 <script src="script.js"></script>
 </body>
