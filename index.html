@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ANSHCORE AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="topBar">
+    <div id="menuBtn">☰</div>
+    <div id="topTitle">ANSHCORE AI</div>
+    <div id="settingsBtn">⚙️</div>
+</div>
+
+<!-- DROPDOWN MENU -->
+<div id="menuPanel" class="hidden">
+    <div onclick="newChat()">🆕 New Chat</div>
+    <div onclick="showMood()">💙 Mood</div>
+    <div onclick="showHistory()">📜 History</div>
+</div>
+
+<!-- CHAT AREA -->
+<div id="chatBox"></div>
+
+<!-- INPUT AREA -->
+<div id="inputArea">
+    <input type="text" id="textInput" placeholder="Talk to me...">
+    <button id="sendBtn">➤</button>
+    <button id="micBtn">🎤</button>
+    <button id="camBtn">📷</button>
+</div>
+
+<!-- CAMERA -->
+<video id="camera" autoplay></video>
+
+<script src="script.js"></script>
+</body>
+</html>
