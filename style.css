@@ -1,0 +1,96 @@
+body {
+    margin: 0;
+    background: #0b0f1a;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+/* TOP BAR */
+#topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #11162a;
+}
+
+#topTitle {
+    font-size: 18px;
+    color: #00ffe1;
+}
+
+#menuBtn, #settingsBtn {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* MENU */
+#menuPanel {
+    background: #1a1f33;
+    padding: 10px;
+}
+#menuPanel div {
+    padding: 8px;
+    cursor: pointer;
+}
+.hidden {
+    display: none;
+}
+
+/* CHAT */
+#chatBox {
+    height: calc(100vh - 130px);
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.userMsg, .aiMsg {
+    max-width: 75%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 15px;
+    animation: bubbleMove 0.4s ease;
+}
+
+.userMsg {
+    background: #00ffe1;
+    color: black;
+    margin-left: auto;
+}
+
+.aiMsg {
+    background: #1a1f33;
+    margin-right: auto;
+}
+
+@keyframes bubbleMove {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* INPUT */
+#inputArea {
+    display: flex;
+    padding: 10px;
+    background: #11162a;
+}
+
+#textInput {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+#sendBtn, #micBtn, #camBtn {
+    margin-left: 6px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+/* CAMERA */
+#camera {
+    display: none;
+    width: 100%;
+}
